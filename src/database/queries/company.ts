@@ -15,7 +15,8 @@ export const updateCompany = `
         name = $1,
         number_of_product = $2,
         number_of_user = $3,
-        percentage = $4
+        percentage = $4,
+        updated_at = NOW()
     WHERE id = $5 AND user_id = $6 RETURNING *
 `;
 

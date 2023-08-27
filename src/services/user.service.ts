@@ -11,8 +11,10 @@ export class UserService {
         private readonly firebaseAuthService: FirebaseAuthService,
     ) { }
 
-    // todo: handle if database error occur exception
     async createUser(data: CreateUserDto): Promise<CreateUserEntity> {
+        if (!data.is_admin) {
+            throw { message: 'Forbidden Resource', code: 403 };
+        };
 
         const firebase_user = await this.firebaseAuthService.createUserWithEmailAndPassword(data.email, data.password);
 
@@ -34,7 +36,6 @@ export class UserService {
     async loginUser(data: LoginUserDto): Promise<LoginUserEntity> {
         // Authenticate user using Firebase Auth
         const firebaseRecord = await this.firebaseAuthService.getUserByEmail(data.email);
-        console.log("🚀 ~ file: user.service.ts:38 ~ UserService ~ loginUser ~ firebaseRecord:", firebaseRecord)
 
         const error = { message: 'Invalid credentials', code: 401 };
 

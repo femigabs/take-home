@@ -58,6 +58,29 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Configure app
+
+Create a `.env` file and add the environment variables described in the `.env.example` file.
+
+## Running migrations
+
+```bash
+# running migration
+$ npm run migrate:up
+```
+
+## Technologies
+
+- NodeJS
+- NestJs
+- Express
+- Postgres
+- Supertest and Jest
+- Postman
+   
+## API Documentation
+- postman: https://api.postman.com/collections/11087517-5e2f1a66-3262-4fe3-b3d7-99124a98d6f7?access_key=PMAT-01H8V1XGFAW0MD2CWN2SHJCX97
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

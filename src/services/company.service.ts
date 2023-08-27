@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreateCompanyDto, UpdateCompanyDto, UpdateCompanyLogoDto } from '../dtos';
 import { CreateCompanyEntity } from '../entities';
 import { DatabaseRepository, CompanyQueries } from '../database';
@@ -8,7 +8,7 @@ import { AwsS3Service } from 'src/config';
 export class CompanyService {
     constructor(
         private readonly databaseRepository: DatabaseRepository,
-        private readonly awsS3Service: AwsS3Service
+        private readonly awsS3Service: AwsS3Service,
     ) { }
 
     async createCompany(data: CreateCompanyDto): Promise<CreateCompanyEntity> {
@@ -97,7 +97,10 @@ export class CompanyService {
     };
 
     async updateSingleCompanyLogo(data: UpdateCompanyDto, fileBuffer: Buffer,  originalFilename: string): Promise<CreateCompanyEntity> {
-    
+        if (!data.is_admin) {
+            throw { message: 'Forbidden Resource', code: 403 };
+        };
+
         const url = await this.uploadImage(data, fileBuffer, originalFilename);
 
         const updatedRecord = this.databaseRepository.queryOne(

@@ -28,7 +28,6 @@ export class AwsS3Service {
       const result = await this.s3.upload(params).promise();
       return result.Location;
     } catch (error) {
-      console.log("🚀 ~ file: awss3-config.provider.ts:31 ~ AwsS3Service ~ uploadImage ~ error:", error)
       throw new Error('Error uploading image');
     }
   }
